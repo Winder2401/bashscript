@@ -30,7 +30,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     cp -r .config/rofi ~/.config/
 read -n1 -rep 'Would you like zsh to be installed' WIFI
 if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
-    yay -S --noconfirm zsh
+    yay -S --noconfirm zsh zsh-syntax-highlighting autojump zsh-autosuggestions
     cp -r .config/zsh ~/.config/
     
     echo -e "enter /bin/zsh"
