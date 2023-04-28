@@ -1,5 +1,4 @@
 #!/bin/bash
-#install yay
  ISYAY=/sbin/yay
 if [ -f "$ISYAY" ]; then 
     echo -e "yay was located, moving on.\n"
@@ -9,21 +8,33 @@ else
     cd yay-bin
     makepkg -si
     yay --version
+    cd ..
 fi
 ########################################################################
-#install sway and nessesery packeges
-    yay -S --noconfirm sway swaybg swayidle swayimg swaylock wl-clipboard xorg-xwayland wayland wayland-docs wayland-protocols wayland-utils ntfs-3g gvfs gvfs-afc gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb
-#install apps
+read -n1 -rep 'Would you like to use sway? (y,n)' INST
+if [[ $INST == "Y" || $INST == "y" ]]; then
+    yay -S --noconfirm sway swaybg swayidle swayimg swaylock wl-clipboard dunst pavucontrol polkit-kde-agent xorg-xwayland wayland wayland-docs wayland-protocols wayland-utils ntfs-3g gvfs gvfs-afc gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb xdg-portal-wlr
+    cp -r .config/sway ~/.config/
+read -n1 -rep 'Would you like to use hyprland? (y,n)' INST
+if [[ $INST == "Y" || $INST == "y" ]]; then
+    yay -Rnd --noconfirm xdg-portal-wlr
+    yay -S --noconfirm hyprpaper hyprland swaylock wl-clipboard dunst waybar-hyprland pavucontrol polkit-kde-agent xorg-xwayland wayland wayland-docs wayland-protocols wayland-utils ntfs-3g gvfs gvfs-afc gvfs-goa gvfs-google gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb xdg-portal-hyprland
+    cp -r .config/hypr ~/.config/
+    read -n1 -rep 'Would you like to install other apps (google-chrome thunar vim neovim alacritty) copy config files? (y,n)' CFG
+if [[ $CFG == "Y" || $CFG == "y" ]]; then
     yay -S --noconfirm google-chrome thunar vim neovim alacritty 
-#configure sway
-cp -r dotconfig/sway ~/.config/
-sh dotconfig/nvim/packerinstall.sh
-cp -r dotconfig/nvim ~/.config/
-#install and configure zsh
+    echo -e "Copying config files...\n"
+    sh .config/nvim/packerinstall.sh
+    cp -r .config/waybar ~/.config/
+    cp -r .config/nvim ~/.config/
+    cp -r .config/rofi ~/.config/
 read -n1 -rep 'Would you like zsh to be installed' WIFI
 if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
-yay -S --noconfirm zsh
-
+    yay -S --noconfirm zsh
+    cp -r .config/zsh ~/.config/
+    
+    echo -e "enter /bin/zsh"
+    sudo chsh $USER
 fi
 
 
