@@ -21,7 +21,6 @@ window#waybar.hidden {
 
 #workspaces button {
   padding: 0 5px;
-  padding-right: 9px;
   color: #7984A4;
   background-color: transparent;
   /* Use box-shadow instead of border so the text isn't offset */
@@ -161,7 +160,7 @@ window#waybar.hidden {
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-  margin-left: 10;
+  margin-left: 0;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
@@ -184,9 +183,8 @@ window#waybar.hidden {
 }
 
 #battery {
-    color: #c0caf5;
-    /* background-color: #90b1b1; */
-    padding-right: 20px;
+  color: #c0caf5;
+  /* background-color: #90b1b1; */
 }
 
 #battery.charging,
